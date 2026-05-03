@@ -1,42 +1,73 @@
-# GenericAgent-Fusion
+# 🤖 GenericAgent — Self-Evolving Agent Framework
+
+> **Tasks complete → Skills crystallize automatically. Every execution makes you smarter.**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
-[![GitHub stars](https://img.shields.io/github/stars/youan-ai/GenericAgent-Fusion)](https://github.com/youan-ai/GenericAgent-Fusion)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-brightgreen)](https://python.org)
 
-A self-evolving agent framework with skill crystallization. Combines multiple AI agent capabilities into a unified, extensible system with automatic skill extraction and knowledge transfer between agents.
+GenericAgent is a **self-evolving agent loop** (~100 lines of stable kernel) that automatically crystallizes completed tasks into reusable skills. Every task execution leaves behind a skill — making the agent progressively more capable without manual intervention.
 
-自进化智能体融合框架，具有技能结晶能力。将多种AI智能体能力融合为统一可扩展系统，支持自动技能提取和跨智能体知识迁移。
+---
 
-## Quick Start
+## ✨ Features
+
+- **Auto-Crystallization** — Task done → skill generated. Zero manual effort.
+- **9 Atomic Tools** — code_run, file_read/write/patch, web_scan, ask_user, checkpoint, long_term_update
+- **L0-L4 Hierarchical Memory** — Context → Working → Short → Long → Meta, with auto-promotion
+- **FTS5 + Semantic Search** — Hybrid retrieval (0.7 semantic + 0.3 success-weight)
+- **GEP Gene Encoding** — Each skill is a gene capsule with mutation history and evolution trace
+
+## 📦 Installation
 
 ```bash
-pip install genericagent-fusion
+git clone https://github.com/Youan-ai/GenericAgent-Fusion.git
+cd GenericAgent-Fusion
 ```
+
+## 🚀 Quick Start
 
 ```python
-from fusion import AgentFusion
-agent = AgentFusion()
-agent.register("assistant", AssistantAgent())
-result = agent.dispatch("Hello!")
+from generic_agent import GenericAgent
+
+agent = GenericAgent()
+
+# Agent automatically:
+# 1. Receives task → 2. Searches existing skills → 3. Executes → 4. Crystallizes new skill
+result = agent.run("Write a Python script to sort files by date")
+# A new skill is now available for future tasks!
+print(f"Crystallized: {result.skills_created}")
 ```
 
-## Core API
+## 🏗️ Architecture
 
-| Method | Description |
-|--------|-------------|
-| `AgentFusion()` | Create a fused agent with multiple capabilities |
-| `agent.register(name, agent_instance)` | Register a new agent type into the fusion system |
-| `agent.dispatch(task)` | Automatically route task to the best-suited agent |
-| `agent.crystallize()` | Extract and crystallize reusable skills from interactions |
+```
+┌─────────────────────────────────────────────┐
+│              GenericAgent Loop                │
+├──────────────┬──────────────────────────────┤
+│ Execution    │ Crystallization               │
+├──────────────┼──────────────────────────────┤
+│ receive task │ analyze execution path        │
+│ search skills│ extract SOP/pattern           │
+│ run tools    │ encode as Gene capsule        │
+│ collect      │ store in skill bank           │
+│ results      │ update AGENTS.md refs         │
+└──────────────┴──────────────────────────────┘
+```
 
-## Features
+## 📚 Memory Hierarchy (L0-L4)
 
-- 🔀 **Multi-Agent Fusion** - Seamlessly combine diverse AI agents
-- 💎 **Skill Crystallization** - Auto-extract reusable skills from agent interactions
-- 🧩 **Plugin Architecture** - Easy to extend with custom agent implementations
-- 🔄 **Knowledge Transfer** - Cross-agent learning and capability sharing
+| Level | Name | Capacity | Persistence |
+|-------|------|----------|-------------|
+| L0 | Context Window | ~session | Session |
+| L1 | Working Memory | ~50 items | Task duration |
+| L2 | Short-term | ~500 items | Day |
+| L3 | Long-term | ~5000 items | Weeks |
+| L4 | Meta-memory | Core skills | Permanent |
 
-## License
+## 🤝 Contributing
 
-Apache 2.0. See [LICENSE](LICENSE) for details.
+Open issues and PRs welcome!
+
+## 📄 License
+
+Apache 2.0 — see [LICENSE](LICENSE).
